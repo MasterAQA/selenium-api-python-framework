@@ -1,17 +1,21 @@
 import base64
 import json
+import time
 
 import pytest
 import requests
+from selenium.webdriver.common.by import By
 from woocommerce import API
 
 from selenium import webdriver
-from configuration import app_name, app_pass, consumer_key, consumer_secret, BASE_URL
+from configuration import app_name, app_pass, consumer_key, consumer_secret, BASE_URL, user, password
 
-from api_locators import api_locators
-from api_pages.posts_page import PostsPageAPI
+from api_urls import api_urls
+from api_client.api_client import ApiClient
+from selenium_locators import sel_locators
 from selenium_pages.home_page import HomePage
-from selenium_pages.posts_page import BlogPage
+from selenium_pages.blog_page import BlogPage
+from selenium_pages.base_page import BasePage
 
 
 @pytest.fixture()
@@ -19,11 +23,7 @@ def driver():
     driver = webdriver.Firefox()
 
     yield driver
-    handles = driver.window_handles
-    size = len(handles)
-    for x in range(size):
-        driver.switch_to.window(handles[x])
-        driver.close()
+    driver.quit()
 
 
 @pytest.fixture(scope="session")
@@ -46,33 +46,55 @@ def woocomerce_api():
     return wcapi
 
 
-@pytest.fixture()
-def posts_api(rest_api, woocomerce_api):
-    return PostsPageAPI(rest_api, woocomerce_api)
+@pytest.fixture(scope="session")
+def login_cookies():
+    driver = webdriver.Firefox()
+    driver.get(sel_locators.MY_ACCOUNT)
+    time.sleep(2)
+    driver.find_element('xpath', sel_locators.USERNAME).send_keys(user)
+    driver.find_element('xpath', sel_locators.PASSWORD).send_keys(password)
+    driver.find_element('xpath', sel_locators.LOGIN_BUTTON).click()
+    time.sleep(2)
+    assert driver.find_element('xpath', sel_locators.MY_ACC_CONTENT).is_displayed()
+    cookies = driver.get_cookies()
+    driver.quit()
+    return cookies[0]
+
+    # base_page.get_url(sel_locators.MY_ACCOUNT)
+    # base_page.find_element((By.XPATH, sel_locators.USERNAME)).send_keys(user)
+    # base_page.find_element((By.XPATH, sel_locators.PASSWORD)).send_keys(password)
+    # base_page.find_element((By.XPATH, sel_locators.LOGIN_BUTTON)).click()
+    # assert base_page.find_element((By.XPATH, sel_locators.MY_ACC_CONTENT)).is_displayed()
+    # cookies = base_page.driver().get_cookies()
+    # new_cookie = {}
+    # for cookie in cookies:
+    #     new_cookie["name"] = cookie["name"]
+    #     new_cookie["value"] = cookie["value"]
+    # return new_cookie
+
+
+
+
+
+
 
 
 @pytest.fixture()
-def home_page(driver):
-    return HomePage(driver)
-
-@pytest.fixture()
-def post_page(driver):
-    return BlogPage(driver)
+def api_client(rest_api, woocomerce_api):
+    return ApiClient(rest_api, woocomerce_api)
 
 
 @pytest.fixture()
-def post(rest_api):
-    data = {
-        "title": "Test",
-        "status": "publish",
-        "content": "test content",
-    }
-    response = requests.post(api_locators.posts, headers=rest_api, data=data)
-    assert response.status_code == 201
-    id = json.loads(response.content)
-    yield
-    response = requests.delete(
-        api_locators.posts + f"//{id}?force=true", headers=rest_api
-    )
+def home_page(driver, login_cookies):
+    return HomePage(driver, login_cookies)
 
-    assert response.status_code == 200
+
+@pytest.fixture()
+def posts_page(driver, login_cookies):
+    return BlogPage(driver, login_cookies)
+
+# @pytest.fixture()
+# def base_page(driver):
+#     return BasePage(driver)
+#
+
