@@ -1,5 +1,3 @@
-import pytest
-
 from selenium_pages.base_page import BasePage
 from selenium_locators import sel_locators
 

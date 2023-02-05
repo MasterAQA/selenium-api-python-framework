@@ -9,12 +9,8 @@ class BlogPage(BasePage):
         self._driver.add_cookie(login_cookies)
         # self._driver.refresh()
 
-
-
     def get_blog_page(self):
         self.get_url(l.BLOG_PAGE)
 
     def check_test_post(self, title="Test"):
-        return self.find_element(
-            (l.TEST_POST[0], l.TEST_POST[1].format(title))
-        )
+        return self.find_element((l.TEST_POST[0], l.TEST_POST[1].format(title)))

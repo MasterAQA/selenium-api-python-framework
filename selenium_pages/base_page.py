@@ -15,7 +15,7 @@ from configuration import BASE_URL
 import requests
 
 
-class BasePage():
+class BasePage:
     def __init__(self, driver: WebDriver):
         self._driver = driver
         self._wait = WebDriverWait(self._driver, 10)
