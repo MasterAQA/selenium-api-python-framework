@@ -8,14 +8,25 @@ overlay = (By.XPATH, "//div[@class='open_shop_overlayloader']")
 
 
 HOME_PAGE = BASE_URL
-BLOG_PAGE = "http://host1853931.hostland.pro/blog/"
-MY_ACCOUNT = "http://host1853931.hostland.pro/my-account/"
+LOGIN_PAGE = f"{BASE_URL}/my-account/"
+BLOG_PAGE = f"{BASE_URL}/blog/"
+MY_ACCOUNT = f"{BASE_URL}/my-account/"
 
 
-USERNAME = "//input[@id='username']"
-PASSWORD = "//input[@id='password']"
-LOGIN_BUTTON = "//button[contains(@class,'login__submit')]"
-MY_ACC_CONTENT = "//div[@class='woocommerce-MyAccount-content']"
+USERNAME_LOGIN = (By.XPATH, "//input[@id='username']")
+PASSWORD_LOGIN = (By.XPATH, "//input[@id='password']")
+LOGIN_BUTTON = (By.XPATH, "//button[contains(@class,'login__submit')]")
+WELCOME_GOOD = (By.XPATH, "//div[@class='woocommerce-MyAccount-content']")
+WELCOME_ERROR = (By.XPATH, "//ul[@class='woocommerce-error']")
+ALREADY_REG = (
+    By.XPATH,
+    "//ul[@class='woocommerce-error']/li[contains(text(), 'уже зарегистрирована')]",
+)
+
+USERNAME_REG = (By.XPATH, "//input[@id='reg_email']")
+PASSWORD_REG = (By.XPATH, "//input[@id='reg_password']")
+REG_BUTTON = (By.XPATH, "//button[contains(@class,'register__submit')]")
+
 
 SELECT_CATEGORY_DECOR = (
     By.XPATH,
@@ -29,5 +40,3 @@ TEST_POST = (
     By.XPATH,
     "//h2[@class='entry-title thunk-post-title']/a[contains(text(), '{}')]",
 )
-
-
