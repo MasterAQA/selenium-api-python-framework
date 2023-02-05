@@ -8,14 +8,22 @@ from selenium.webdriver.common.by import By
 from woocommerce import API
 
 from selenium import webdriver
-from configuration import app_name, app_pass, consumer_key, consumer_secret, BASE_URL, user, password
+from configuration import (
+    app_name,
+    app_pass,
+    consumer_key,
+    consumer_secret,
+    BASE_URL,
+    user,
+    password,
+)
 
 from api_urls import api_urls
 from api_client.api_client import ApiClient
 from selenium_locators import sel_locators
 from selenium_pages.home_page import HomePage
 from selenium_pages.blog_page import BlogPage
-from selenium_pages.base_page import BasePage
+from selenium_pages.login_page import LoginPage
 
 
 @pytest.fixture()
@@ -51,11 +59,11 @@ def login_cookies():
     driver = webdriver.Firefox()
     driver.get(sel_locators.MY_ACCOUNT)
     time.sleep(2)
-    driver.find_element('xpath', sel_locators.USERNAME).send_keys(user)
-    driver.find_element('xpath', sel_locators.PASSWORD).send_keys(password)
-    driver.find_element('xpath', sel_locators.LOGIN_BUTTON).click()
+    driver.find_element(sel_locators.USERNAME_LOGIN).send_keys(user)
+    driver.find_element(sel_locators.PASSWORD_LOGIN).send_keys(password)
+    driver.find_element(sel_locators.LOGIN_BUTTON).click()
     time.sleep(2)
-    assert driver.find_element('xpath', sel_locators.MY_ACC_CONTENT).is_displayed()
+    assert driver.find_element(sel_locators.WELCOME_GOOD).is_displayed()
     cookies = driver.get_cookies()
     driver.quit()
     return cookies[0]
@@ -73,12 +81,6 @@ def login_cookies():
     # return new_cookie
 
 
-
-
-
-
-
-
 @pytest.fixture()
 def api_client(rest_api, woocomerce_api):
     return ApiClient(rest_api, woocomerce_api)
@@ -93,8 +95,7 @@ def home_page(driver, login_cookies):
 def posts_page(driver, login_cookies):
     return BlogPage(driver, login_cookies)
 
-# @pytest.fixture()
-# def base_page(driver):
-#     return BasePage(driver)
-#
 
+@pytest.fixture()
+def login_page(driver):
+    return LoginPage(driver)
