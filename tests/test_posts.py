@@ -11,6 +11,7 @@ def test_posts(api_client, posts_page):
 
     api_client.delete_post(id)
 
+
 def test_posts1(api_client, posts_page):
     id = api_client.create_post(title="Beauty1")
     # posts_page.get_blog_page()
