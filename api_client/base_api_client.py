@@ -12,10 +12,11 @@ class ApiBase:
         self._wcapi = wcapi
         self._root_url = root_url
         self.session = requests.Session()
+        self.path = ConstantsWeb
 
     def about_me(self):
         response = requests.get(
-            self._root_url + ConstantsWeb.ABOUT_ME, headers=self._headers
+            self._root_url + self.path.ABOUT_ME, headers=self._headers
         )
         return json.loads(response.content)
 
