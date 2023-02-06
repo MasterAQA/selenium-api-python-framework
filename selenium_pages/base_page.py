@@ -18,18 +18,10 @@ import requests
 class BasePage:
     def __init__(self, driver: WebDriver):
         self._driver = driver
-        self._wait = WebDriverWait(self._driver, 10)
+        self._wait = WebDriverWait(self._driver, 30)
         self.actionChains = ActionChains(driver)
         self.default_url = BASE_URL
         self.overlay = overlay
-
-    # def login_cookies(self):
-    #     self._driver.get("http://host1853931.hostland.pro/my-account/")
-    #     self.find_element((By.XPATH, "//input[@id='username']")).send_keys("qatesting")
-    #     self.find_element((By.XPATH, "//input[@id='password']")).send_keys("kVWydHZs@p)RX^^NBQ")
-    #     self.find_element((By.XPATH, "//button[contains(@class,'login__submit')]")).click()
-    #     assert self.find_element((By.XPATH, "//div[@class='woocommerce-MyAccount-content']")).is_displayed()
-    #     return self._driver.get_cookies()
 
     def driver(self):
         return self._driver
@@ -40,6 +32,7 @@ class BasePage:
     def _wait_for_overlay(self, locator: dict) -> dict:
         self._wait.until(ec.invisibility_of_element_located(self.overlay))
         self._wait.until(ec.presence_of_element_located(locator))
+        self._wait.until(ec.visibility_of_element_located(locator))
         return locator
 
     def find_element(self, locator) -> WebElement:
@@ -47,12 +40,3 @@ class BasePage:
 
     def get_url(self, url: str):
         self._driver.get(url)
-
-    # def web_authorize(self):
-    #     cookies = requests.getfixturevalue('get_cookies')
-    #     new_cookie = {}
-    #     for cookie in cookies:
-    #         new_cookie["name"] = cookie["name"]
-    #         new_cookie["value"] = cookie["value"]
-    #     self._driver.add_cookie(new_cookie)
-    #     self._driver.refresh()

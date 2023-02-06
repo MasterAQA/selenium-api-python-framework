@@ -3,12 +3,12 @@ from selenium_locators import sel_locators
 
 
 class HomePage(BasePage):
-    def __init__(self, driver, login_cookies):
+    def __init__(self, driver):
         super().__init__(driver)
-        self.get_home_page()
-        self._driver.add_cookie(login_cookies)
+        self.get_page()
 
-    def get_home_page(self):
+
+    def get_page(self):
         self.get_url(sel_locators.HOME_PAGE)
 
     def click_decor(self):
