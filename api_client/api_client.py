@@ -30,9 +30,7 @@ class ApiClient(ApiBase):
     def search_id_user(self, username):
         if "@" in username:
             username = username.split("@")[0]
-        return self.send_request("GET", self.path.SEARCH_USER.format(username),).json()[
-            0
-        ]["id"]
+        return self.send_request("GET", self.path.SEARCH_USER.format(username)).json()[0]["id"]
 
     def delete_user(self, id_user):
         response = self.send_request(
