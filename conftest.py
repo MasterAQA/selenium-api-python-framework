@@ -1,10 +1,8 @@
 import base64
-import json
 import time
-
 import pytest
-import requests
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from woocommerce import API
 
 from selenium import webdriver
@@ -18,12 +16,13 @@ from configuration import (
     password,
 )
 
-from api_urls import api_urls
 from api_client.api_client import ApiClient
-from selenium_locators import sel_locators
+from selenium_locators import sel_locators as l
 from selenium_pages.home_page import HomePage
 from selenium_pages.blog_page import BlogPage
 from selenium_pages.login_page import LoginPage
+from selenium_pages.cart_page import CartPage
+from selenium_pages.contact_us_page import ContactUsPage
 
 
 @pytest.fixture()
@@ -57,13 +56,13 @@ def woocomerce_api():
 @pytest.fixture(scope="session")
 def login_cookies():
     driver = webdriver.Firefox()
-    driver.get(sel_locators.MY_ACCOUNT)
-    time.sleep(2)
-    driver.find_element(sel_locators.USERNAME_LOGIN).send_keys(user)
-    driver.find_element(sel_locators.PASSWORD_LOGIN).send_keys(password)
-    driver.find_element(sel_locators.LOGIN_BUTTON).click()
-    time.sleep(2)
-    assert driver.find_element(sel_locators.WELCOME_GOOD).is_displayed()
+    driver.get(l.MY_ACCOUNT)
+    WebDriverWait(driver, 10).until(ec.invisibility_of_element_located(l.overlay))
+    driver.find_element(*l.USERNAME_LOGIN).send_keys(user)
+    driver.find_element(*l.PASSWORD_LOGIN).send_keys(password)
+    driver.find_element(*l.LOGIN_BUTTON).click()
+    WebDriverWait(driver, 10).until(ec.invisibility_of_element_located(l.overlay))
+    assert driver.find_element(*l.WELCOME_GOOD).is_displayed()
     cookies = driver.get_cookies()
     driver.quit()
     return cookies[0]
@@ -87,15 +86,25 @@ def api_client(rest_api, woocomerce_api):
 
 
 @pytest.fixture()
-def home_page(driver, login_cookies):
-    return HomePage(driver, login_cookies)
+def home_page(driver):
+    return HomePage(driver)
 
 
 @pytest.fixture()
-def posts_page(driver, login_cookies):
-    return BlogPage(driver, login_cookies)
+def blog_page(driver):
+    return BlogPage(driver)
 
 
 @pytest.fixture()
 def login_page(driver):
     return LoginPage(driver)
+
+
+@pytest.fixture()
+def cart_page(driver, login_cookies):
+    return CartPage(driver, login_cookies)
+
+
+@pytest.fixture()
+def contact_us_page(driver):
+    return ContactUsPage(driver)
