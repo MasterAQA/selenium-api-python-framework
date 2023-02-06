@@ -40,10 +40,3 @@ class ApiClient(ApiBase):
             self.path.DELETE_USER.format(id_user),
         )
         assert response.status_code == 200
-
-    # def id_create_post(self, title="Test", status="publish", content="test_content"):
-    #     return self.create_post().json()["id"]
-
-    # response = self.session.post(api_locators.posts, headers=self._headers, data=data)
-    # assert response.status_code == 201
-    # id = json.loads(response.content)

@@ -1,5 +1,4 @@
 import json
-from urllib.parse import urljoin
 
 import requests
 from api_urls.api_urls import ConstantsWeb
@@ -19,10 +18,6 @@ class ApiBase:
             self._root_url + self.path.ABOUT_ME, headers=self._headers
         )
         return json.loads(response.content)
-
-    # class PostsPageAPI(BasePageApi):
-    #     def login_rest_api(self):
-    #         return self.login().get("name") == "qatesting"
 
     def send_request(self, method, path, **kwargs):
         url = self._root_url + path

@@ -1,11 +1,4 @@
-import time
-
-import pytest
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
-
-# from conftest import login_cookies
-
 from selenium_locators.sel_locators import overlay
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
