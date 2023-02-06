@@ -12,7 +12,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from configuration import BASE_URL
-import requests
 
 
 class BasePage:

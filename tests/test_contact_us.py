@@ -1,5 +1,3 @@
-import time
-
 NAME = "Vadim"
 EMAIL = "garmornin@yandex.ru"
 NUMBER = "+7901904839"

@@ -39,14 +39,14 @@ HOVER_PRODUCT = (
     "//li[contains(@class,'post-{}')]//div[@class='thunk-product']",
 )
 
-
-SELECT_CATEGORY_DECOR = (
+# Home page / Categories
+SELECT_CATEGORY = (
     By.XPATH,
-    "//ul[@class='product-cat-list thunk-product-cat-list']//a[contains(text(), 'Decor')]",
+    "//ul[@class='product-cat-list thunk-product-cat-list']//a[contains(text(), '{}')]",
 )
-TITLE_CATEGORY_DECOR = (
+TITLE_CATEGORY = (
     By.XPATH,
-    "//h1[@class='thunk-page-top-title entry-title']/span[contains(text(), 'Decor')]",
+    "//h1[@class='thunk-page-top-title entry-title']/span[contains(text(), '{}')]",
 )
 
 
