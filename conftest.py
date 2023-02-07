@@ -101,8 +101,8 @@ def login_page(driver):
 
 
 @pytest.fixture()
-def cart_page(driver, login_cookies):
-    return CartPage(driver, login_cookies)
+def cart_page(driver):
+    return CartPage(driver)
 
 
 @pytest.fixture()
