@@ -4,6 +4,7 @@ from configuration import BASE_URL
 
 # Ненавистный Overlay
 overlay = (By.XPATH, "//div[@class='open_shop_overlayloader']")
+blackOverlay = (By.XPATH, "//div[@class='blockUI blockOverlay']")
 
 # Pages
 HOME_PAGE = BASE_URL
@@ -29,7 +30,7 @@ PASSWORD_REG = (By.XPATH, "//input[@id='reg_password']")
 REG_BUTTON = (By.XPATH, "//button[contains(@class,'register__submit')]")
 
 
-# Cart page
+# Shop page
 ADD_PRODUCT = (
     By.XPATH,
     "//li[contains(@class,'post-{}')]//a[contains(@class,'add_to_cart')]",
@@ -37,6 +38,20 @@ ADD_PRODUCT = (
 HOVER_PRODUCT = (
     By.XPATH,
     "//li[contains(@class,'post-{}')]//div[@class='thunk-product']",
+)
+CLOSE_CART_MENU = (
+    By.XPATH,
+    "//div[@id='3']//a[@class='taiowc-cart-close']",
+)
+
+# Cart_page
+CART_SIZE = (
+    By.XPATH,
+    "//tr[@class='woocommerce-cart-form__cart-item cart_item']",
+)
+REMOVE_PRODUCT = (
+    By.XPATH,
+    "//tr[@class='woocommerce-cart-form__cart-item cart_item'][{}]//a[@class='remove']",
 )
 
 # Home page / Categories
