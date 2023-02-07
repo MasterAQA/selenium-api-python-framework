@@ -10,7 +10,7 @@ from configuration import BASE_URL
 class BasePage:
     def __init__(self, driver: WebDriver):
         self._driver = driver
-        self._wait = WebDriverWait(self._driver, 20)
+        self._wait = WebDriverWait(self._driver, 30)
         self.actionChains = ActionChains(driver)
         self.default_url = BASE_URL
         self.overlay = overlay

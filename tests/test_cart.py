@@ -1,6 +1,7 @@
 def test_cart_add(api_client, cart_page):
     cart_page.get_shop_page()
-    cart_page.add_product()
+    id_products = cart_page.random_list_products(1)
+    cart_page.add_product(id_products)
     cart_page.get_cart_page()
 
     assert cart_page.cart_size() == 1
@@ -8,7 +9,8 @@ def test_cart_add(api_client, cart_page):
 
 def test_cart_add_multiple(api_client, cart_page):
     cart_page.get_shop_page()
-    [cart_page.add_product() for _ in range(3)]
+    id_products = cart_page.random_list_products(3)
+    cart_page.add_product(id_products)
     cart_page.get_cart_page()
 
     assert cart_page.cart_size() == 3
