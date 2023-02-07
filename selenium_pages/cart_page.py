@@ -8,7 +8,6 @@ class CartPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-
     def get_cart_page(self):
         self.get_url(l.CART_PAGE)
 
@@ -28,13 +27,12 @@ class CartPage(BasePage):
             new_set.add(id_product)
         return new_set
 
-
     def add_product(self, list_products):
         for id_product in list_products:
 
             element = self.find_element(
-                    (l.HOVER_PRODUCT[0], l.HOVER_PRODUCT[1].format(id_product))
-                )
+                (l.HOVER_PRODUCT[0], l.HOVER_PRODUCT[1].format(id_product))
+            )
 
             self.driver().execute_script("arguments[0].scrollIntoView(true);", element)
             self.actionChains.move_to_element(element).perform()
@@ -52,6 +50,3 @@ class CartPage(BasePage):
         self.find_element(
             (l.REMOVE_PRODUCT[0], l.REMOVE_PRODUCT[1].format(size))
         ).click()
-
-
-
