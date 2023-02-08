@@ -1,7 +1,7 @@
 import json
 
 import requests
-from api_urls.api_urls import ConstantsWeb
+from api_client.constants import ConstantsWeb
 from configuration import root_url
 
 
@@ -17,13 +17,11 @@ class ApiBase:
         response = requests.get(
             self._root_url + self.path.ABOUT_ME, headers=self._headers
         )
+        response.raise_for_status()
         return json.loads(response.content)
 
     def send_request(self, method, path, **kwargs):
         url = self._root_url + path
         response = requests.request(method, url, headers=self._headers, **kwargs)
-        assert response.status_code == 200 or 201
+        response.raise_for_status()
         return response
-
-    def cookie_to_browser(self):
-        self.session.cookies.items()
