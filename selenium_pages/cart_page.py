@@ -1,7 +1,6 @@
-import time
 from random import randint
 from selenium_pages.base_page import BasePage
-from selenium_locators import sel_locators as l
+from selenium_pages import sel_locators as l
 
 
 class CartPage(BasePage):

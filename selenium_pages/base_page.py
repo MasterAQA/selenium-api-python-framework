@@ -1,5 +1,5 @@
 from selenium.webdriver import ActionChains
-from selenium_locators.sel_locators import overlay, blackOverlay
+from selenium_pages.sel_locators import overlay, blackOverlay
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
