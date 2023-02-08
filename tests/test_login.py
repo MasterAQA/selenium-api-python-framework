@@ -1,13 +1,11 @@
-import time
-
 from configuration import user, password
+from faker import Faker
+
 
 CORRECT_USER = user
 CORRECT_PASS = password
-REG_USER = "test_gineklo1@yandex.ru"
-REG_USER_1 = "test_gineklo2@yandex.ru"
-REG_PASS = "S5168wKAyiwet"
-WEAK_PASS = "G1526"
+REG_USER = "test_" + Faker().profile()["mail"]
+REG_PASS = Faker().password(12)
 
 
 def test_login_rest_api(api_client):
@@ -22,6 +20,6 @@ def test_login_correct(login_page):
 
 
 def test_login_incorrect(login_page):
-    login_page.login(REG_USER, WEAK_PASS)
+    login_page.login(REG_USER, REG_PASS)
 
     assert login_page.error_login()

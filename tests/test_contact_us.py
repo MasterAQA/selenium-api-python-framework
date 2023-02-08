@@ -1,7 +1,10 @@
-NAME = "Vadim"
-EMAIL = "garmornin@yandex.ru"
-NUMBER = "+7901904839"
-CONTENT = "Test content in contact us area"
+from faker import Faker
+
+
+NAME = Faker().name()
+EMAIL = Faker().profile()["mail"]
+NUMBER = f"+7{Faker().msisdn()[3:]}"
+CONTENT = Faker().text()
 
 
 def test_contact_us(api_client, contact_us_page):
