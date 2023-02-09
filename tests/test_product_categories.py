@@ -31,4 +31,3 @@ def test_categories(home_page, category):
     home_page.click_category(category)
 
     assert home_page.title_category(category)
-
