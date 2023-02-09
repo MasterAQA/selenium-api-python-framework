@@ -1,5 +1,4 @@
 import base64
-import time
 import pytest
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -17,7 +16,7 @@ from configuration import (
 )
 
 from api_client.api_client import ApiClient
-from selenium_locators import sel_locators as l
+from selenium_pages import sel_locators as l
 from selenium_pages.home_page import HomePage
 from selenium_pages.blog_page import BlogPage
 from selenium_pages.login_page import LoginPage
@@ -66,18 +65,6 @@ def login_cookies():
     cookies = driver.get_cookies()
     driver.quit()
     return cookies[0]
-
-    # base_page.get_url(sel_locators.MY_ACCOUNT)
-    # base_page.find_element((By.XPATH, sel_locators.USERNAME)).send_keys(user)
-    # base_page.find_element((By.XPATH, sel_locators.PASSWORD)).send_keys(password)
-    # base_page.find_element((By.XPATH, sel_locators.LOGIN_BUTTON)).click()
-    # assert base_page.find_element((By.XPATH, sel_locators.MY_ACC_CONTENT)).is_displayed()
-    # cookies = base_page.driver().get_cookies()
-    # new_cookie = {}
-    # for cookie in cookies:
-    #     new_cookie["name"] = cookie["name"]
-    #     new_cookie["value"] = cookie["value"]
-    # return new_cookie
 
 
 @pytest.fixture()
