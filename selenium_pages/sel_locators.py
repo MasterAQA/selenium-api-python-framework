@@ -8,12 +8,16 @@ blackOverlay = (By.XPATH, "//div[@class='blockUI blockOverlay']")
 
 # Pages
 HOME_PAGE = BASE_URL
+ACCOUNT_PAGE = f"{BASE_URL}/my-account/"
 LOGIN_PAGE = f"{BASE_URL}/my-account/"
 BLOG_PAGE = f"{BASE_URL}/blog/"
 MY_ACCOUNT = f"{BASE_URL}/my-account/"
 CART_PAGE = f"{BASE_URL}/cart/"
 SHOP_PAGE = f"{BASE_URL}/shop/"
 CONTACT_US_PAGE = f"{BASE_URL}/contact-us/"
+
+# Account page
+LOGOUT_BUTTON = (By.XPATH, "//li[contains(@class,'customer-logout')]/a")
 
 # Login page
 USERNAME_LOGIN = (By.XPATH, "//input[@id='username']")

@@ -17,6 +17,7 @@ from configuration import (
 
 from api_client.api_client import ApiClient
 from selenium_pages import sel_locators as l
+from selenium_pages.account_page import AccountPage
 from selenium_pages.home_page import HomePage
 from selenium_pages.blog_page import BlogPage
 from selenium_pages.login_page import LoginPage
@@ -75,6 +76,11 @@ def api_client(rest_api, woocomerce_api):
 @pytest.fixture()
 def home_page(driver):
     return HomePage(driver)
+
+
+@pytest.fixture()
+def account_page(driver, login_cookies):
+    return AccountPage(driver, login_cookies)
 
 
 @pytest.fixture()
